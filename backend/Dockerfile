@@ -4,5 +4,5 @@ WORKDIR /home
 COPY . .
 RUN pip install -r requirements.txt
 EXPOSE 9030
-CMD ["python", "./app.py"]
+CMD ["python", "./server.py"]
 
