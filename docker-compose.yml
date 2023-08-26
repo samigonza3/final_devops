@@ -22,6 +22,8 @@ services:
       - 9030
     ports:
       -  "9030:9030"
+    depends_on:
+      - tienda_database
     networks:
       - tiendanet
   tienda_frontend:

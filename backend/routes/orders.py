@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from dbmodels import db, Product, Order, Client
+from dbmodels import db, Product, Order, Client, Deliveries, DetailOrder
 from routes.app import app
 
 

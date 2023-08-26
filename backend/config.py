@@ -1,6 +1,8 @@
-# import os
+
 DEBUG=False
 SECRET_KEY='5daef7014be6b26e7939'
+
+# import os
 # basedir = os.path.abspath(os.path.dirname(__file__))
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir,'database.db')
 
