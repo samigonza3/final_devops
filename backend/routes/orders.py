@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from dbmodels import db, Product, Order, Client
-from app import app
+from routes.app import app
 
 
 # Funcion ver todas las ordenes

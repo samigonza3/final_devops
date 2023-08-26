@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from dbmodels import db, Client
-from app import app
+from routes.app import app
 
 # Funcion ver todos los clientes
 @app.route ("/clients",methods=['GET'])

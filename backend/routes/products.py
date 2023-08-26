@@ -1,24 +1,23 @@
 
 from flask import request, jsonify
 from dbmodels import db, Product
-from app import app
-
+from routes.app import app
 
 # Funcion ver todos los productos
-@app.route ("",methods=['GET'])
+@app.route ("/products",methods=['GET'])
 def products():
     return jsonify ([
         a_product.serialize() for a_product in Product.query.all()
     ])
 
 #Funcion para ver solo un producto
-@app.route("/<int:product_id>", methods=['GET'])
+@app.route("/products/<int:product_id>", methods=['GET'])
 def get_product(product_id):
     a_product = Product.query.get_or_404(product_id)
     return jsonify(a_product.serialize())
 
 # Funcion para crear producto
-@app.route ("",methods=['POST'])
+@app.route ("/products",methods=['POST'])
 def new_product():
     data = request.json
     try:
@@ -38,7 +37,7 @@ def new_product():
         }  
     
 # funcion para actualizar producto
-@app.route("/<int:product_id>", methods=['PUT'])
+@app.route("/products/<int:product_id>", methods=['PUT'])
 def update_product(product_id):
     data = request.json
     try:
@@ -66,7 +65,7 @@ def update_product(product_id):
         }), 400
 
 #Funcion para eliminar producto
-@app.route("/<int:product_id>", methods=['DELETE'])
+@app.route("/products/<int:product_id>", methods=['DELETE'])
 def delete_product(product_id):
     
     data = request.json

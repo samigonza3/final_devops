@@ -18,10 +18,8 @@ def pong():
     }
 
 
-from routes import products
+# app.add_url_rule('/products', view_func=products)
+# app.add_url_rule('/clients', view_func=views.index)
+# app.add_url_rule('/orders', view_func=views.index)
 
-app.add_url_rule('/products', view_func=products)
-# app.add_url_rule('/', view_func=views.index)
-
-app.run(host="0.0.0.0", debug=True, port=9030)
 
