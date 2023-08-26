@@ -39,3 +39,24 @@ def users():
     return jsonify ([
         a_user.serialize() for a_user in User.query.all()
     ])
+
+# Funcion para crear producto
+@app.route ("/users",methods=['POST'])
+def new_user():
+    data = request.json
+    try:
+        a_user = User(
+            data['name'],
+            data['email'],
+            generate_password_hash(data['password'])
+        )
+        a_user.slug = str(uuid.uuid4())
+        db.session.add(a_user)
+        db.session.commit()
+        return jsonify({"message": "success", "slug":a_user.slug}),200
+    except Exception as ex:
+        return 400, {
+            "message": "No saved",
+            'error': str(ex)
+        }  
+    
