@@ -17,8 +17,7 @@ def get_order(order_id):
     a_order = Order.query.get_or_404(order_id)
     return jsonify(a_order.serialize())
 
-# Funcion para crear orden
-@app.route ("/orders",methods=['POST'])
+@app.route("/orders", methods=['POST'])
 def new_order():
     data = request.json
 
@@ -27,28 +26,45 @@ def new_order():
     for field in required_fields:
         if field not in data:
             return jsonify({'error': f'Missing field: {field}'}), 400
-        
+
     try:
         client = db.session.query(Client).filter_by(id=data['client_id']).first()
 
         if client is None:
-            return jsonify({"message": "client does not exist"}), 404
-        
+            return jsonify({"message": "Client does not exist"}), 404
+
+        # Generate order_id and order_date here
+        order_id = generate_order_id()  # You can create a function to generate a unique order ID
+        order_date = datetime.utcnow().isoformat()  # Get the current UTC date and time as ISO string
+
         a_order = Order(
-            #order_date=data['date'],
-            data['client_id'],
-            data['status']
+            Order_id=order_id,
+            Order_date=order_date,
+            client_id=data['client_id'],
+            status=data['status']
         )
 
         db.session.add(a_order)
         db.session.commit()
 
-        return jsonify({"message": "Order created successfully"}),201
+        # Include order_id and order_date in the response
+        response_data = {
+            "message": "Order created successfully",
+            "order_id": order_id,
+            "order_date": order_date,
+        }
+        return jsonify(response_data), 201
     except Exception as ex:
         return jsonify({
-            "message": "Deletion failed",
+            "message": "Order creation failed",
             'error': str(ex)
         }), 400
+
+# Function to generate a unique order ID
+def generate_order_id():
+    # You can implement your logic to generate a unique order ID here
+    # For simplicity, let's use a timestamp-based ID
+    return str(int(datetime.timestamp(datetime.utcnow())))
 
 # funcion para actualizar orden
 @app.route("/orders/<int:order_id>", methods=['PUT'])

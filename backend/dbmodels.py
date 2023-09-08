@@ -161,7 +161,13 @@ class User(db.Model):
     slug = db.Column(db.String(100))
     name = db.Column(db.String(100))
     email = db.Column(db.String(80), unique = True)
-    password = db.Column(db.String(80))
+    password = db.Column(db.String(1000))
+
+    def __init__(self, name, email, password, slug):
+        self.slug = slug
+        self.name = name
+        self.email = email
+        self.password = password
 
     def serilize(self):
         return {

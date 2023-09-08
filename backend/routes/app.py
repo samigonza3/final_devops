@@ -8,9 +8,6 @@ app.config.from_object('config')
 db.init_app(app)
 CORS(app)
 
-with app.app_context():
-    db.create_all()
-
 @app.route ("/ping",methods=['GET'])
 def pong():
     return{

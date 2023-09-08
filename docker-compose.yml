@@ -18,12 +18,12 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
+    depends_on:
+      - tienda_database
     expose:
       - 9030
     ports:
       -  "9030:9030"
-    depends_on:
-      - tienda_database
     networks:
       - tiendanet
   tienda_frontend:
@@ -31,10 +31,13 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: frontend
+    depends_on:
+      - tienda_database
+      - tienda_backend
     expose:
       - 80
     ports:
-      - "80:80"
+      - "80:3000"
     networks:
       - tiendanet
 
